@@ -1,0 +1,109 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Orbitron&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: clamp(1rem, 1.5rem, 2.4rem);
+  letter-spacing: 3px;
+  line-height: 1.6;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(315deg, #7f5a83 0%, #0d324d 74%) no-repeat;
+  color: white;
+}
+
+.container {
+  max-width: 460px;
+  height: auto;
+  margin: 5em auto;
+  text-align: center;
+  padding: 1em;
+}
+
+.title {
+  font-size: clamp(0.75rem, 1.4rem, 2rem);
+  margin-bottom: 5em;
+}
+.date-time-display {
+  margin-top: 1em;
+  color: rgb(124, 149, 173);
+}
+.time-display {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#amPm {
+  margin-top: 9px;
+}
+
+.date-display {
+  line-height: 1.2;
+}
+.date-format {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: clamp(0.5em, 0.75em, 1em);
+}
+#monthText,
+#dateText,
+#yearText {
+  margin: 0 0.25em;
+}
+
+.location {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 1em 0;
+}
+.city,
+.country {
+  margin-bottom: 0.25em;
+  line-height: 1;
+}
+
+.temperature {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1em;
+}
+.temp-degree {
+  color: rgb(223, 193, 24);
+}
+.description {
+  font-style: italic;
+}
+
+/* display / hide */
+.hidden {
+  display: none;
+}
+.show {
+  display: block;
+}
+
+.signature {
+  text-align: center;
+  color: rgb(120, 142, 165);
+  /* font-family: "Courier New", Courier, monospace; */
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+/* media queries */

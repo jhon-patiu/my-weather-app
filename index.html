@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Weather App</title>
+    <link rel="stylesheet" href="main.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">My Weather App</h1>
+
+      <div class="date-time-display">
+        <div class="time-display">
+          <h2 id="hours"></h2>
+          <h2>:</h2>
+          <h2 id="minutes"></h2>
+          <h6 id="seconds"></h6>
+          <h4 id="amPm"></h4>
+        </div>
+        <div class="date-display">
+          <h4 id="dayText"></h4>
+          <span class="date-format"
+            ><h4 id="monthText"></h4>
+            <h4 id="dateText"></h4>
+            <h4 id="yearText"></h4
+          ></span>
+        </div>
+      </div>
+
+      <div class="location">
+        <h2 class="city">my city</h2>
+        <h3 class="country">my country</h3>
+      </div>
+
+      <div class="weather-icon"></div>
+
+      <div class="temperature">
+        <h1 class="temp-value">32</h1>
+        <h2 class="temp-degree">C°</h2>
+        <div class="weather-icon">
+          <img
+            src="/weather-icons/animated/cloudy-day-1.svg"
+            alt=""
+            id="sunnyDay"
+            class="hidden"
+          />
+          <img
+            src="/weather-icons/animated/cloudy-night-3.svg"
+            alt=""
+            id="cloudyNight"
+            class="hidden"
+          />
+          <img
+            src="/weather-icons/animated/cloudy.svg"
+            alt=""
+            id="cloudyDay"
+            class="hidden"
+          />
+          <img
+            src="/weather-icons/animated/rainy-5.svg"
+            alt=""
+            id="rainyLight"
+            class="hidden"
+          />
+          <img
+            src="/weather-icons/animated/rainy-7.svg"
+            alt=""
+            id="rainyHeavy"
+            class="hidden"
+          />
+          <img
+            src="/weather-icons/animated/snowy-6.svg"
+            alt=""
+            id="snowy"
+            class="hidden"
+          />
+          <img
+            src="/weather-icons/animated/thunder.svg"
+            alt=""
+            id="stormy"
+            class="hidden"
+          />
+        </div>
+      </div>
+
+      <div class="description"><p>its sunny</p></div>
+    </div>
+  </body>
+  <footer>
+    <h6 class="signature">/ Coded by: Jhon Patiu /</h6>
+  </footer>
+</html>
