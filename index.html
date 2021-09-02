@@ -6,7 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Weather App</title>
     <link rel="stylesheet" href="main.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
     <script src="app.js" defer></script>
+    <script type="text/javascript" src="config.js"></script>
   </head>
   <body>
     <div class="container">
@@ -39,51 +48,59 @@
 
       <div class="temperature">
         <h1 class="temp-value"></h1>
-        <h2 class="temp-degree">C<span>°</span></h2>
+        <h2 class="temp-degree" data-unit="C">C<span>°</span></h2>
         <div class="weather-icon">
           <img
             src="/weather-icons/animated/cloudy-day-1.svg"
             alt=""
             id="sunnyDay"
-            class="hidden"
+            class="hidden weather-icons"
           />
           <img
             src="/weather-icons/animated/cloudy-night-3.svg"
             alt=""
             id="cloudyNight"
-            class="hidden"
+            class="hidden weather-icons"
           />
           <img
             src="/weather-icons/animated/cloudy.svg"
             alt=""
             id="cloudyDay"
-            class="hidden"
+            class="hidden weather-icons"
           />
           <img
             src="/weather-icons/animated/rainy-5.svg"
             alt=""
             id="rainyLight"
-            class="hidden"
+            class="hidden weather-icons"
           />
           <img
             src="/weather-icons/animated/rainy-7.svg"
             alt=""
             id="rainyHeavy"
-            class="hidden"
+            class="hidden weather-icons"
           />
           <img
             src="/weather-icons/animated/snowy-6.svg"
             alt=""
             id="snowy"
-            class="hidden"
+            class="hidden weather-icons"
           />
           <img
             src="/weather-icons/animated/thunder.svg"
             alt=""
             id="stormy"
-            class="hidden"
+            class="hidden weather-icons"
           />
         </div>
+      </div>
+
+      <div id="temp-converter">
+        <span class="switch-c">C°</span>
+        <label class="switch">
+          <input type="checkbox" />
+          <span class="slider round"></span> </label
+        ><span class="switch-f">F°</span>
       </div>
 
       <div class="description"><p class="description-text"></p></div>

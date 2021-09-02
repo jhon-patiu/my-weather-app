@@ -15,9 +15,14 @@ let myCountry = document.querySelector(".country");
 let tempValue = document.querySelector(".temp-value");
 let tempDegree = document.querySelector(".temp-degree");
 let descriptionText = document.querySelector(".description-text");
+let weatherIcons = document.querySelectorAll(".weather-icons");
+const tempConvertBtn = document.getElementById("temp-converter");
+const switchButton = document.querySelector("input[type='checkbox']");
 let long;
 let lat;
-const apikey = "51fb667ebfd0e051c4595c5f3bb54757";
+
+// API keys
+const weatherKey = keys.OPENWEATHER_API_KEY;
 
 // get Date and Time
 let date = new Date();
@@ -30,9 +35,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // get current location
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition((pos) => {
-      lat = pos.coords.latitude;
-      long = pos.coords.longitude;
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log(position);
+      lat = position.coords.latitude;
+      long = position.coords.longitude;
+      // success callback
 
       // reverse geocoding
       const url = `https://us1.locationiq.com/v1/reverse.php?key=pk.ac6703283a8e50678da273765a018154&lat=${lat}&lon=${long}&format=json`;
@@ -40,15 +47,24 @@ document.addEventListener("DOMContentLoaded", () => {
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
-          let { city, state, country } = data.address;
+          const { city, state, country } = data.address;
+          console.log(data);
           myCity.innerText = city + ", " + state;
           myCountry.innerText = country;
         })
         .then(
           getWeather(
-            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apikey}`
+            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=metric&appid=${weatherKey}`
           )
         );
+      // error callback
+      (err) => {
+        console.log(err);
+      };
+      // options
+      {
+        enableHighAccuracy: true;
+      }
     });
   }
 
@@ -63,26 +79,65 @@ function getWeather(weatherURL) {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-      temp = data.main.temp;
-      console.log(temp);
-      let forecast = data.weather[0].main;
-      console.log(forecast);
-      let { description } = data.weather[0];
-      console.log(description);
-      descriptionText.innerText = '"' + description + '"';
-    })
-    .then(convertTemp(temp));
 
-  function convertTemp(temp) {
-    if (tempDegree.innerText === "C") {
-      temp - 273.15;
-    } else {
-      ((temp - 273.15) * 9) / 5 + 32;
-    }
-    return (tempValue.innerText = temp);
-  }
+      temp = data.main.temp;
+      temp = parseInt(temp).toFixed(0);
+      tempValue.innerText = temp;
+
+      let forecast = data.weather[0].main;
+      let weatherID = data.weather[0].id;
+      // determine which icon to show depending on forecast
+      if (forecast === "Clouds") {
+        weatherIcons[2].classList.toggle("show");
+      } else if (forecast === "Thunderstorm") {
+        weatherIcons[6].classList.toggle("show");
+      } else if (
+        (forecast === "Rain" && weatherID === 500) ||
+        501 ||
+        520 ||
+        521
+      ) {
+        weatherIcons[3].classList.toggle("show");
+      } else if (
+        (forecast === "Rain" && weatherID === 502) ||
+        503 ||
+        504 ||
+        522 ||
+        531
+      ) {
+        weatherIcons[4].classList.toggle("show");
+      } else if (forecast === "Snow") {
+        weatherIcons[5].classList.toggle("show");
+      } else if (forecast === "Clear") {
+        weatherIcons[0].classList.toggle("show");
+      } else if (forecast === "Drizzle") {
+        weatherIcons[3].classList.toggle("show");
+      }
+      let { description } = data.weather[0];
+      descriptionText.innerText = '"' + description + '"';
+
+      switchButton.addEventListener("change", () => {
+        if (tempDegree.dataset.unit === "C") {
+          temp = (temp * 9) / 5 + 32;
+          tempValue.innerText = parseInt(temp).toFixed(0);
+          tempDegree.dataset.unit = "F";
+          tempDegree.innerText = "F" + "°";
+          return;
+        } else {
+          temp = ((temp - 32) * 5) / 9;
+          tempValue.innerText = parseInt(temp).toFixed(0);
+          tempDegree.dataset.unit = "C";
+          tempDegree.innerText = "C" + "°";
+        }
+      });
+    });
 }
 
+// convert C to F
+
+// function convertToFarenheit(celsius) {
+//   return (celsius = (celsius * 9) / 5 + 32);
+// }
 // get and set Time
 // function displayTime() {
 //   // get hr
