@@ -24,8 +24,37 @@ let lat;
 // API keys
 const weatherKey = keys.OPENWEATHER_API_KEY;
 
-// get Date and Time
+// Date and Time
 let date = new Date();
+
+setInterval(setClock, 1000);
+
+function setClock() {
+  let currentDate = new Date();
+
+  // 12-hr clock
+  if (currentDate.getHours() <= 12) {
+    hoursText.innerText = currentDate.getHours();
+    amPm.innerText = "AM";
+  } else {
+    hoursText.innerText = currentDate.getHours() - 12;
+    amPm.innerText = "PM";
+  }
+
+  // 2-digit minutes when < 10
+  if (currentDate.getMinutes() >= 10) {
+    minutesText.innerText = currentDate.getMinutes();
+  } else {
+    minutesText.innerText = "0" + currentDate.getMinutes();
+  }
+
+  // 2-digit secs when < 10
+  if (currentDate.getSeconds() >= 10) {
+    secondsText.innerText = currentDate.getSeconds();
+  } else {
+    secondsText.innerText = "0" + currentDate.getSeconds();
+  }
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   getDay();
@@ -36,7 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // get current location
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((position) => {
-      console.log(position);
       lat = position.coords.latitude;
       long = position.coords.longitude;
       // success callback
@@ -47,10 +75,18 @@ document.addEventListener("DOMContentLoaded", () => {
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
-          const { city, state, country } = data.address;
-          console.log(data);
-          myCity.innerText = city + ", " + state;
-          myCountry.innerText = country;
+          let city = data.address.city;
+          let state = data.address.state;
+          let country = data.address.country;
+          if (city && state !== undefined) {
+            myCity.innerText = city + ", " + state;
+            myCountry.innerText = country;
+          } else {
+            let village = data.address.village;
+            let region = data.address.region;
+            myCity.innerText = village + ", " + region;
+            myCountry.innerText = country;
+          }
         })
         .then(
           getWeather(
@@ -68,8 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // const proxy = "https://cors-anywhere.herokuapp.com/corsdemo";
-
   // get weather of location
 });
 
@@ -78,8 +112,6 @@ function getWeather(weatherURL) {
   fetch(weatherURL)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
-
       temp = data.main.temp;
       temp = parseInt(temp).toFixed(0);
       tempValue.innerText = temp;
@@ -133,34 +165,6 @@ function getWeather(weatherURL) {
     });
 }
 
-// convert C to F
-
-// function convertToFarenheit(celsius) {
-//   return (celsius = (celsius * 9) / 5 + 32);
-// }
-// get and set Time
-// function displayTime() {
-//   // get hr
-//   let hour = date.getHours();
-//   if (hour > 12) {
-//     return hour - 12;
-//   }
-
-//   hoursText.innerText = hour;
-
-//   // get min
-//   let minute = date.getMinutes();
-//   if (minute < 10) {
-//     minute = "0" + minute;
-//   }
-//   minutesText.innerText = minute;
-
-//   // am or pm
-//   if (date.getHours > 12) {
-//     amPm.innerText = "PM";
-//   } else {
-//     amPm.innerText = "AM";
-//   }
 // get and set Date
 function getDay() {
   // get Day
