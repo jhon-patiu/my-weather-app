@@ -220,5 +220,6 @@ input:checked + .slider:before {
   }
   body {
     height: 100vh;
+    overflow: scroll;
   }
 }
